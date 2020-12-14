@@ -15,3 +15,5 @@ npm init -y
 ### Initialize typescript
 tsc --init 
 
+#### Do not forget
+Install ingress-nginx before running skaffold dev --trigger polling

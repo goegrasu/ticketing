@@ -14,6 +14,9 @@ spec:
     spec:
       containers:
         - name: auth
+        # default name that google cloud assigns to the image / project id in the google cloud platform / name of the project
+        #  image: us.gcr.io/ticketing-dev-297516/auth
+        # the below image name is for local use
           image: georgesirghe/auth
 ---
 # the service for the auth pod

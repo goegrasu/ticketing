@@ -5,9 +5,15 @@ deploy:
     manifests:
       - ./infra/k8s/*
 build:
+  # commented local because we switched to google cloud, to return to local please switch the commented lines
   local:
     push: false
+  #googleCloudBuild:
+    #projectId: ticketing-dev-297516
   artifacts:
+    # default name that google cloud assigns to the image / project id in the google cloud platform / name of the project
+      #- image: us.gcr.io/ticketing-dev-297516/auth
+      # the below image name is for local use
     - image: georgesirghe/auth
       context: auth
       docker:
