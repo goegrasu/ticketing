@@ -17,3 +17,7 @@ tsc --init
 
 #### Do not forget
 Install ingress-nginx before running skaffold dev --trigger polling
+
+#### Kubectl secrets
+kubectl create secret generic "jwt-secret" --from-literal=jwt=asdf \
+kubectl get secrets (to get the secrets stored in kubectl)

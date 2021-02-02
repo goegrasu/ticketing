@@ -30,6 +30,20 @@ const userSchema = new mongoose.Schema ({
         type: String,
         required: true
     }
+}, {
+    // instead of function is an object where we can send a set of options on how 
+    // to transform the document to JSON
+    toJSON: {
+        // doc is user document
+        // ret is what is going to return
+        transform(doc, ret) {
+            delete ret.password;
+            // or set versionKey: false
+            delete ret.__v;            
+            ret.id = ret._id;
+            delete ret._id;
+        }
+    }
 });
 
 // using "function" keyword and not arrow functions to prevent that "this" keyword 

@@ -18,6 +18,15 @@ spec:
         #  image: us.gcr.io/ticketing-dev-297516/auth
         # the below image name is for local use or from docker hub
           image: georgesirghe/auth
+          env:
+            # name of the environment variable that we are going to use inside the pod (container)
+            - name:  JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  # the name of the secret in the kubernets
+                  name: jwt-secret
+                  # the key of the key - value pair that is in the secret above
+                  key: JWT_KEY
 ---
 # the service for the auth pod
 apiVersion: v1
