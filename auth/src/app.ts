@@ -17,7 +17,7 @@ app.use(cookieSession({
         signed: false,
         // postman not working if no valid certificate
         // turn postman settings to SSL Verification to OFF so it will work
-        secure: true
+        secure: process.env.NODE_ENV !== 'test'
     })
 );
 
