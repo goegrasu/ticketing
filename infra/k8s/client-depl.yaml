@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+        - name: client
+        # default name that google cloud assigns to the image / project id in the google cloud platform / name of the project
+        #  image: us.gcr.io/ticketing-dev-297516/auth
+        # the below image name is for local use or from docker hub
+          image: georgesirghe/client
+---
+# the service for the auth pod
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-srv  
+spec:
+  # din't set a type here because the default is ClusterIP and this is what we need
+  selector:
+    app: client
+  ports:
+    - name: client
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

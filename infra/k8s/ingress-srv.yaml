@@ -14,3 +14,8 @@ spec:
             backend:
               serviceName: auth-srv
               servicePort: 3000
+          - path: /?(.*)
+            backend:
+              serviceName: client-srv
+              # matching the port that nextjs is opening
+              servicePort: 3000
