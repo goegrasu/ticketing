@@ -4,8 +4,7 @@ import { body } from 'express-validator';
 import { User } from '../models/User';
 import { Password } from '../services/password';
 
-import { validateRequest } from '../middlewares/validate-request';
-import { BadRequestError } from '../errors/bad-request-error';
+import { validateRequest, BadRequestError } from '@goegrasutickets/common';
 
 import jwt from 'jsonwebtoken';
 
