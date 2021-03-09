@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tickets-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tickets
+  template:
+    metadata:
+      labels:
+        app: tickets
+    spec:
+      containers:
+        - name: tickets
+          # default name that google cloud assigns to the image / project id in the google cloud platform / name of the project
+          #  image: us.gcr.io/ticketing-dev-297516/auth
+          # the below image name is for local use or from docker hub
+          image: georgesirghe/tickets
+          env:
+            - name: MONGO_URI
+              value: "mongodb://tickets-mongo-srv:27017/tickets"
+            # name of the environment variable that we are going to use inside the pod (container)
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  # the name of the secret in the kubernets
+                  name: jwt-secret
+                  # the key of the key - value pair that is in the secret above
+                  key: JWT_KEY
+---
+# the service for the auth pod
+apiVersion: v1
+kind: Service
+metadata:
+  name: tickets-srv
+spec:
+  # din't set a type here because the default is ClusterIP and this is what we need
+  selector:
+    app: tickets
+  ports:
+    - name: tickets
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

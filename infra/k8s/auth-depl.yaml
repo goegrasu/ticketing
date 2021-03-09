@@ -14,13 +14,15 @@ spec:
     spec:
       containers:
         - name: auth
-        # default name that google cloud assigns to the image / project id in the google cloud platform / name of the project
-        #  image: us.gcr.io/ticketing-dev-297516/auth
-        # the below image name is for local use or from docker hub
+          # default name that google cloud assigns to the image / project id in the google cloud platform / name of the project
+          #  image: us.gcr.io/ticketing-dev-297516/auth
+          # the below image name is for local use or from docker hub
           image: georgesirghe/auth
           env:
+            - name: MONGO_URI
+              value: "mongodb://auth-mongo-srv:27017/auth"
             # name of the environment variable that we are going to use inside the pod (container)
-            - name:  JWT_KEY
+            - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
                   # the name of the secret in the kubernets
@@ -32,7 +34,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: auth-srv  
+  name: auth-srv
 spec:
   # din't set a type here because the default is ClusterIP and this is what we need
   selector:

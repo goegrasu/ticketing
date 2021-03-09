@@ -9,24 +9,32 @@ build:
   local:
     push: false
   #googleCloudBuild:
-    #projectId: ticketing-dev-297516
+  #projectId: ticketing-dev-297516
   artifacts:
     # default name that google cloud assigns to the image / project id in the google cloud platform / name of the project
-      #- image: us.gcr.io/ticketing-dev-297516/auth
-      # the below image name is for local use
+    #- image: us.gcr.io/ticketing-dev-297516/auth
+    # the below image name is for local use
     - image: georgesirghe/auth
       context: auth
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: 'src/**/*.ts'
+          - src: "src/**/*.ts"
             dest: .
     - image: georgesirghe/client
       context: client
       docker:
-        dockerfile: Dockerfile   
+        dockerfile: Dockerfile
       sync:
         manual:
-          - src: '**/*.js'
-            dest: .   
+          - src: "**/*.js"
+            dest: .
+    - image: georgesirghe/tickets
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
