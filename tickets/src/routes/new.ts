@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import { requireAuth, validateRequest } from '@goegrasutickets/common';
 import { body } from 'express-validator';
+import { Ticket } from '../models/Ticket';
 
 const router = express.Router();
 
@@ -16,11 +17,20 @@ router.post('/api/tickets',
             .withMessage('Price must be greater than 0')
     ],
     validateRequest,
+    async (req: Request, res: Response) => {
 
-    (req: Request, res: Response) => {
+        const { title, price } = req.body;
 
-        res.sendStatus(200);
+        const ticket = Ticket.build({
+            title,
+            price,
+            // is it checked that the currentUser is set in the requireAuth middleware
+            userId: req.currentUser!.id
+        });
 
+        await ticket.save();
+
+        res.status(201).send(ticket);
     }
 );
 
