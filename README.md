@@ -34,4 +34,6 @@ npm publish --access public (so publish will be public I didn't pay any money)
 Using a NATS Streaming Server as an event bus \
 docs.nats.io section about NATS Streaming \
 Monitoring on port 8222 http://localhost:8222/streaming \
-Monitoring channels  Ex: http://localhost:8222/streaming/channelsz?subs=1
+Monitoring channels  Ex: http://localhost:8222/streaming/channelsz?subs=1 \
+\
+On the dev env do not forget to kubectl port-forward nameofthepod port:port for testing
