@@ -37,3 +37,6 @@ Monitoring on port 8222 http://localhost:8222/streaming \
 Monitoring channels  Ex: http://localhost:8222/streaming/channelsz?subs=1 \
 \
 On the dev env do not forget to kubectl port-forward nameofthepod port:port for testing
+### Testing done with Jest and Supertest
+Using a mocked Nats. (nats-wrapper.ts)
+

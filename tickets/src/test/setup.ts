@@ -4,6 +4,10 @@ import mongoose from 'mongoose';
 import { app } from '../app';
 import jwt from 'jsonwebtoken';
 
+// whenever a file wants to import this file it will import the one from 
+// src/__mocks__/nats-wrapper.ts
+jest.mock('../nats-wrapper');
+
 declare global {
     namespace NodeJS {
         interface Global {
@@ -28,6 +32,8 @@ beforeAll(async () => {
 });
 
 beforeEach(async () => {
+    // so each test will receive a fresh copy of mocks
+    jest.clearAllMocks();
 
     const collections = await mongoose.connection.db.collections();
     for (let collection of collections) {
