@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orders-mongo-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: orders-mongo
+  template:
+    metadata:
+      labels:
+        app: orders-mongo
+    spec:
+      containers:
+        - name: orders-mongo
+          # this image will be taken automatically from the docker hub (the name mongo is from docker hub, must exist in docker hub)
+          image: mongo
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orders-mongo-srv
+spec:
+  selector:
+    # same as the label from the template -> metadata -> labels -> app
+    app: orders-mongo
+  ports:
+    # the name put here is only for logging purposes
+    - name: db
+      protocol: TCP
+      port: 27017
+      targetPort: 27017
