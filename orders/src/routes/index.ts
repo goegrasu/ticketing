@@ -9,8 +9,8 @@ router.get('/api/orders',
     async (req: Request, res: Response) => {
         const orders = Order.find({
             userId: req.currentUser!.id
-        });
-        /*.populate('ticket');*/
+        })
+        .populate('ticket');
 
         res.sendStatus(200).send(orders);
     }
